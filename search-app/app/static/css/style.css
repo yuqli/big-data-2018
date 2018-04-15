@@ -1,0 +1,29 @@
+.home {
+    padding-top: 50px;
+}
+
+.push {
+    clear: both;
+    height: 4em;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -4em;
+}
+
+.center {
+    margin: auto;
+    max-width: 800px;
+    padding: 10px;
+}
+
+.content-section {
+    padding: 0;
+}
+
+.btn-area {
+    padding: 20px 0;
+}
