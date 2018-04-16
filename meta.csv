@@ -1,0 +1,27 @@
+table,field,type,nullable
+ad_feature,adgroup_id,integer,TRUE
+ad_feature,cate_id,integer,TRUE
+ad_feature,campaign_id,integer,TRUE
+ad_feature,customer,integer,TRUE
+ad_feature,brand,integer,TRUE
+ad_feature,price,double ,TRUE
+behavior_log,user,integer,TRUE
+behavior_log,time_stamp,integer,TRUE
+behavior_log,btag,string,TRUE
+behavior_log,cate,integer,TRUE
+behavior_log,brand,integer,TRUE
+raw_sample,user,integer,TRUE
+raw_sample,time_stamp,integer,TRUE
+raw_sample,adgroup_id,integer,TRUE
+raw_sample,pid,string,TRUE
+raw_sample,nonclk,integer,TRUE
+raw_sample,clk,integer,TRUE
+user_profile,userid,integer,TRUE
+user_profile,cms_segid,integer,TRUE
+user_profile,cms_group_id,integer,TRUE
+user_profile,final_gender_code,integer,TRUE
+user_profile,age_level,integer,TRUE
+user_profile,pvalue_level,integer,TRUE
+user_profile,shopping_level,integer,TRUE
+user_profile,occupation,integer,TRUE
+user_profile,new_user_class_level,integer,TRUE
