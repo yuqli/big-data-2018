@@ -46,7 +46,6 @@ StructField("brand", IntegerType(), True),])
 
 behavior_log = spark.read.csv("/user/yl5090/data/behavior_log.csv", header=True, mode="DROPMALFORMED", schema = behavior_log_schema)
 
-
 # show the schemas
 ad_feature.printSchema()
 behavior_log.printSchema()
@@ -89,9 +88,10 @@ def count_unique(var, table):
     """
     Input the variable of interest and the table name
     return the count of unique values of that varaible in that dataset
+    in a JSON formatted string. 
     """
     spark.sql('SELECT COUNT(DISTINCT {0}) as unique_count \
-    FROM {1}'.format(var, table)).show()
+    FROM {1}'.format(var, table)).toJSON().first()
 
 
 ### Highest price
