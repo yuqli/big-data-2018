@@ -1,0 +1,5 @@
+web_addr: localhost:4090
+  tunnels:
+    flask:
+      addr: 8080
+      proto: http
