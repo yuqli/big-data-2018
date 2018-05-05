@@ -3,6 +3,15 @@
 {% block title %}Search{% endblock %} 
 {% block body %}
 <div>
-  {{ wtf.quick_form(form) }}
+  <form class="form" method="post" role="form">
+      {{ form.hidden_tag() }}
+      {{ wtf.form_errors(form, hiddens="only") }}
+      {{ wtf.form_field(form.dataset, id="ds-select")}}
+      {{ wtf.form_field(form.column, id="col-select") }}
+      {{ wtf.form_field(form.value) }}
+      {{ wtf.form_field(form.aggregate) }}
+      {{ wtf.form_field(form.submit, button_map={'submit':'primary'}) }}
+  </form>
+  <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
 </div>
 {% endblock %}

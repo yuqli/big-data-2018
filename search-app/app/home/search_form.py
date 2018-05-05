@@ -4,9 +4,20 @@ from wtforms import StringField, SubmitField, SelectField
 
 class SearchForm(FlaskForm):
     dataset = SelectField(
-        'table', choices=['Ad Feature', 'User Profile', 'Behavior Log'])
-    column = StringField('colums')
+        'dataset', choices=[
+            ('select', 'Please Select'),
+            ('ad_feature', 'Ad Feature'),
+            ('user_profile', 'User Profile'),
+            ('behavior_log', 'Behavior Log')])
+    column = SelectField('columns', choices=[])
     value = StringField('value')
     aggregate = SelectField('aggregate', choices=[
-                            'Max', 'Min', 'Count', 'Count Max', 'Count Min', 'Mean'])
+                            ('select', 'Please Select'),
+                            ('max', 'Max'),
+                            ('min', 'Min'),
+                            ('cnt', 'Count'),
+                            ('cnt_max', 'Count Max'),
+                            ('cnt_min', 'Count Min'),
+                            ('mean', 'Mean')
+                            ])
     submit = SubmitField('Search')
