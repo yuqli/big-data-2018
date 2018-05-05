@@ -27,6 +27,46 @@ def show_table_with_column(col):
     """
     return spark.sql("SELECT * FROM meta WHERE field = '{0}'".format(col)).toJSON().collect()
 
+def col_max(col, dataset):
+    """
+    Give a column name, returns the max value of this column
+    """
+    return spark.sql("SELECT MAX({0}) FROM {1}".format(col, dataset)).toJSON().collect()
+
+def col_min(col, dataset):
+    """
+    Give a column name, returns the min value of this column
+    """
+    return spark.sql('SELECT MIN({0}) FROM {1}'.format(col, dataset)).toJSON().collect()
+
+def col_ave(col, dataset):
+    """
+    Give a column name, returns the average value of this column
+    """
+    return spark.sql('SELECT AVG({0}) FROM {1}'.format(col,dataset)).toJSON().collect()
+
+def col_sum(col, dataset):
+    """
+    Give a column name, returns the sum of this column
+    """
+    return spark.sql('SELECT SUM({0}) FROM {1}'.format(col, dataset)).toJSON().collect()
+
+def col_most_freq(col, dataset):
+    """
+    Give a column name, returns the 10 values with most frequence
+    """
+    return spark.sql('SELECT {0}, COUNT(*) AS num_count FROM {1} \
+    GROUP BY {2} \
+    ORDER BY num_count \
+    DESC LIMIT 10'.format(col, dataset, col)).toJSON().collect()
+
+def specific_rows(col, value, dataset):
+    """
+    Give a column name and a value, returns the rows of the dataset where the column value equals to value
+    """
+    return spark.sql('SELECT * FROM {1} WHERE {2}==value'.format(col, dataset)).toJSON.collect()
+
+
 ################################################################################
 #
 ################################################################################
