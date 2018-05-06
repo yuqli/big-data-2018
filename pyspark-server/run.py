@@ -8,7 +8,7 @@ spark = SparkSession.builder.appName('Big Search').getOrCreate()
 ad_feature = spark.read.format('csv').options(header='true',inferschema='true').load('/user/yl5090/data/ad_feature.csv')
 behavior_log = spark.read.format('csv').options(header='true',inferschema='true').load('/user/yl5090/data/behavior_log.csv')
 user_profile = spark.read.format('csv').options(header='true',inferschema='true').load('/user/yl5090/data/user_profile.csv')
-meta = spark.read.format('csv').options(header='true', inferschema='true').load('/user/yl5090/data/meta.csv')
+# meta = spark.read.format('csv').options(header='true', inferschema='true').load('/user/yl5090/data/meta.csv')
 
 behavior_log.createOrReplaceTempView('behavior_log')
 user_profile.createOrReplaceTempView('user_profile')
