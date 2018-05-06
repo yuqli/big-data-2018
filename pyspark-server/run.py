@@ -1,8 +1,9 @@
 from flask import Flask, request
-app = Flask(__name__, instance_relative_config=True)
-
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
+
+app = Flask(__name__, instance_relative_config=True)
+spark = SparkSession.builder.appName('Big Search').getOrCreate()
 
 ad_feature = spark.read.format('csv').options(header='true',inferschema='true').load('/user/yl5090/data/ad_feature.csv')
 behavior_log = spark.read.format('csv').options(header='true',inferschema='true').load('/user/yl5090/data/behavior_log.csv')
@@ -91,4 +92,7 @@ def search():
     elif aggregation == 'show_table':
         return show_table_with_column(column)
 
+@app.route('/test', methods=['GET'])
+def test():
+    return col_most_freq('cate_id', 'ad_feature')
 app.run(port=8080)
