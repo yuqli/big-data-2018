@@ -13,7 +13,7 @@ meta = spark.read.format('csv').options(header='true', inferschema='true').load(
 behavior_log.createOrReplaceTempView('behavior_log')
 user_profile.createOrReplaceTempView('user_profile')
 ad_feature.createOrReplaceTempView('ad_feature')
-meta.createOrReplaceTempView('meta')
+# meta.createOrReplaceTempView('meta')
 ################################################################################
 #
 ################################################################################
