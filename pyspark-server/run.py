@@ -64,7 +64,7 @@ def specific_rows(col, value, dataset):
     """
     Give a column name and a value, returns the rows of the dataset where the column value equals to value
     """
-    return spark.sql('SELECT * FROM {1} WHERE {2}==value'.format(col, dataset)).toJSON.collect()
+    return spark.sql('SELECT * FROM {0} WHERE {1}={2}'.format(dataset, col, value)).toJSON().collect()
 
 
 ################################################################################
