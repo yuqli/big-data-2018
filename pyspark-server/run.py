@@ -2,7 +2,7 @@ from flask import Flask, request
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
 
-app = Flask(__name__, instance_relative_config=True)
+app = Flask(__name__)
 spark = SparkSession.builder.appName('Big Search').getOrCreate()
 
 ad_feature = spark.read.format('csv').options(
@@ -105,7 +105,7 @@ def test():
     return col_most_freq('cate_id', 'ad_feature')
 
 
-@app.route('/<database>/<table>/<column>/<aggregation>', methods=['GET'])
+@app.route('/search/<database>/<table>/<column>/<aggregation>', methods=['GET'])
 def search():
     # return 'hello world'
     res = 'response'
