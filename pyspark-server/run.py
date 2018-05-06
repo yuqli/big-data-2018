@@ -95,27 +95,32 @@ def specific_rows(col, value, dataset):
 ################################################################################
 #
 ################################################################################
+@app.route('/test', methods=['POST', 'GET'])
+def toyFunction():
+    return 'hello'
+
+
 @app.route('/hello', methods=['GET'])
 def hello():
     return 'hello'
 
 
-@app.route('/test', methods=['GET'])
-def test():
-    return col_most_freq('cate_id', 'ad_feature')
+# @app.route('/test', methods=['GET'])
+# def test():
+#     return col_most_freq('cate_id', 'ad_feature')
 
 
-@app.route('/search/<database>/<table>/<column>/<aggregation>', methods=['GET'])
-def search():
-    # return 'hello world'
-    res = 'response'
-    if aggregation == 'count_unique':
-        res = count_unique(column, table)
-    elif aggregation == 'show_column':
-        res = show_column(column, table)
-    elif aggregation == 'show_table':
-        res = show_table_with_column(column)
-    return res
+# @app.route('/search/<database>/<table>/<column>/<aggregation>', methods=['GET'])
+# def search():
+#     # return 'hello world'
+#     res = 'response'
+#     if aggregation == 'count_unique':
+#         res = count_unique(column, table)
+#     elif aggregation == 'show_column':
+#         res = show_column(column, table)
+#     elif aggregation == 'show_table':
+#         res = show_table_with_column(column)
+#     return res
 
 
 app.run(port=8080)
