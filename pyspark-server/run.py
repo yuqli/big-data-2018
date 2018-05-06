@@ -5,9 +5,12 @@ from pyspark.sql.functions import *
 app = Flask(__name__, instance_relative_config=True)
 spark = SparkSession.builder.appName('Big Search').getOrCreate()
 
-ad_feature = spark.read.format('csv').options(header='true',inferschema='true').load('/user/yl5090/data/ad_feature.csv')
-behavior_log = spark.read.format('csv').options(header='true',inferschema='true').load('/user/yl5090/data/behavior_log.csv')
-user_profile = spark.read.format('csv').options(header='true',inferschema='true').load('/user/yl5090/data/user_profile.csv')
+ad_feature = spark.read.format('csv').options(
+    header='true', inferschema='true').load('/user/yl5090/data/ad_feature.csv')
+behavior_log = spark.read.format('csv').options(
+    header='true', inferschema='true').load('/user/yl5090/data/behavior_log.csv')
+user_profile = spark.read.format('csv').options(
+    header='true', inferschema='true').load('/user/yl5090/data/user_profile.csv')
 # meta = spark.read.format('csv').options(header='true', inferschema='true').load('/user/yl5090/data/meta.csv')
 
 behavior_log.createOrReplaceTempView('behavior_log')
@@ -18,6 +21,7 @@ ad_feature.createOrReplaceTempView('ad_feature')
 #
 ################################################################################
 
+
 def count_unique(var, table):
     """
     Input the variable of interest and the table name
@@ -27,11 +31,14 @@ def count_unique(var, table):
     FROM {1}'.format(var, table)).toJSON().first()
 
 # input a column name, return contents of that columns
+
+
 def show_column(var, dataset):
     """
     Input a column name, return contents of that column
     """
     return spark.sql('SELECT {0} FROM {1}'.format(var, dataset)).toJSON().collect()
+
 
 def show_table_with_column(col):
     """
@@ -39,11 +46,13 @@ def show_table_with_column(col):
     """
     return spark.sql("SELECT * FROM meta WHERE field = '{0}'".format(col)).toJSON().collect()
 
+
 def col_max(col, dataset):
     """
     Give a column name, returns the max value of this column
     """
     return spark.sql("SELECT MAX({0}) FROM {1}".format(col, dataset)).toJSON().collect()
+
 
 def col_min(col, dataset):
     """
@@ -51,17 +60,20 @@ def col_min(col, dataset):
     """
     return spark.sql('SELECT MIN({0}) FROM {1}'.format(col, dataset)).toJSON().collect()
 
+
 def col_ave(col, dataset):
     """
     Give a column name, returns the average value of this column
     """
-    return spark.sql('SELECT AVG({0}) FROM {1}'.format(col,dataset)).toJSON().collect()
+    return spark.sql('SELECT AVG({0}) FROM {1}'.format(col, dataset)).toJSON().collect()
+
 
 def col_sum(col, dataset):
     """
     Give a column name, returns the sum of this column
     """
     return spark.sql('SELECT SUM({0}) FROM {1}'.format(col, dataset)).toJSON().collect()
+
 
 def col_most_freq(col, dataset):
     """
@@ -71,6 +83,7 @@ def col_most_freq(col, dataset):
     GROUP BY {2} \
     ORDER BY num_count \
     DESC LIMIT 10'.format(col, dataset, col)).toJSON().collect()
+
 
 def specific_rows(col, value, dataset):
     """
@@ -82,17 +95,27 @@ def specific_rows(col, value, dataset):
 ################################################################################
 #
 ################################################################################
-@app.route('/<database>/<table>/<column>/<aggregation>', methods=['GET'])
-def search():
-    # return 'hello world'
-    if aggregation == 'count_unique':
-        return count_unique(column, table)
-    elif aggregation == 'show_column':
-        return show_column(column, table)
-    elif aggregation == 'show_table':
-        return show_table_with_column(column)
+@app.route('/hello', methods=['GET'])
+def hello():
+    return 'hello'
+
 
 @app.route('/test', methods=['GET'])
 def test():
     return col_most_freq('cate_id', 'ad_feature')
+
+
+@app.route('/<database>/<table>/<column>/<aggregation>', methods=['GET'])
+def search():
+    # return 'hello world'
+    res = 'response'
+    if aggregation == 'count_unique':
+        res = count_unique(column, table)
+    elif aggregation == 'show_column':
+        res = show_column(column, table)
+    elif aggregation == 'show_table':
+        res = show_table_with_column(column)
+    return res
+
+
 app.run(port=8080)
