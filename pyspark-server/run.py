@@ -128,19 +128,19 @@ def search():
     if aggregate == 'count_unique':
         res = count_unique(column, dataset)
     elif aggregate == 'max':
-        pass
+        res = col_max(column, dataset)
     elif aggregate == 'min':
-        pass
+        res = col_min(column, dataset)
     elif aggregate == 'count':
         pass
     elif aggregate == 'count_freq':
-        pass
+        res = col_most_freq(column, dataset)
     elif aggregate == 'count_min':
         pass
     elif aggregate == 'mean':
-        pass
+        res = col_ave(column, dataset)
     elif aggregate == 'sum':
-        pass
+        res = col_sum(column, dataset)
     # elif aggregation == 'show_column':
     #     res = show_column(column, table)
     # elif aggregation == 'show_table':
