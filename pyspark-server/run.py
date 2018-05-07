@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
 
@@ -117,17 +117,21 @@ def test():
     return jsonify(res)
 
 
-# @app.route('/search/<database>/<table>/<column>/<aggregation>', methods=['GET'])
-# def search():
-#     # return 'hello world'
-#     res = 'response'
-#     if aggregation == 'count_unique':
-#         res = count_unique(column, table)
-#     elif aggregation == 'show_column':
-#         res = show_column(column, table)
-#     elif aggregation == 'show_table':
-#         res = show_table_with_column(column)
-#     return res
+@app.route('/search', methods=['GET'])
+def search():
+    dataset = request.args['dataset']
+    column = request.args['column']
+    value = request.args['value']
+    aggregate = request.args['aggregate']
+    print(dataset, column, value, aggregate)
+    if aggregate == 'count_unique':
+        # res = count_unique(column, table)
+        return 'success'
+    # elif aggregation == 'show_column':
+    #     res = show_column(column, table)
+    # elif aggregation == 'show_table':
+    #     res = show_table_with_column(column)
+    return 'end'
 
 
 app.run(port=8080)
