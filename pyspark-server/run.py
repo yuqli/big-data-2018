@@ -28,7 +28,7 @@ def count_unique(var, table):
     return the count of unique values of that varaible in that dataset
     """
     return spark.sql('SELECT COUNT(DISTINCT {0}) as unique_count \
-    FROM {1}'.format(var, table)).toJSON().first()
+    FROM {1}'.format(var, table)).toJSON().collect()
 
 # input a column name, return contents of that columns
 
