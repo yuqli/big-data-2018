@@ -124,14 +124,28 @@ def search():
     value = request.args['value']
     aggregate = request.args['aggregate']
     print(dataset, column, value, aggregate)
+    res = []
     if aggregate == 'count_unique':
-        # res = count_unique(column, table)
-        return 'success'
+        res = count_unique(column, dataset)
+    elif aggregate == 'max':
+        pass
+    elif aggregate == 'min':
+        pass
+    elif aggregate == 'count':
+        pass
+    elif aggregate == 'count_freq':
+        pass
+    elif aggregate == 'count_min':
+        pass
+    elif aggregate == 'mean':
+        pass
+    elif aggregate == 'sum':
+        pass
     # elif aggregation == 'show_column':
     #     res = show_column(column, table)
     # elif aggregation == 'show_table':
     #     res = show_table_with_column(column)
-    return 'end'
+    return jsonify(res)
 
 
 app.run(port=8080)
