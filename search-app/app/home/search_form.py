@@ -15,9 +15,11 @@ class SearchForm(FlaskForm):
                             ('select', 'Please Select'),
                             ('max', 'Max'),
                             ('min', 'Min'),
-                            ('cnt', 'Count'),
-                            ('cnt_max', 'Count Max'),
-                            ('cnt_min', 'Count Min'),
-                            ('mean', 'Mean')
+                            ('count', 'Count'),
+                            ('count_freq', 'Count Frequent'),
+                            ('count_min', 'Count Min'),
+                            ('count_unique', 'Count Unique'),
+                            ('mean', 'Mean'),
+                            ('sum', 'Sum'),
                             ])
     submit = SubmitField('Search')
