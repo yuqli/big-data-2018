@@ -102,7 +102,9 @@ def toyFunction():
 
 @app.route('/test', methods=['GET'])
 def test():
-    return col_most_freq('cate_id', 'ad_feature')
+    res = col_most_freq('cate_id', 'ad_feature')
+    print(res)
+    return 'success'
 
 
 # @app.route('/search/<database>/<table>/<column>/<aggregation>', methods=['GET'])
