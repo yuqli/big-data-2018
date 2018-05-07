@@ -11,12 +11,12 @@ behavior_log = spark.read.format('csv').options(
     header='true', inferschema='true').load('/user/yl5090/data/behavior_log.csv')
 user_profile = spark.read.format('csv').options(
     header='true', inferschema='true').load('/user/yl5090/data/user_profile.csv')
-# meta = spark.read.format('csv').options(header='true', inferschema='true').load('/user/yl5090/data/meta.csv')
+meta = spark.read.format('csv').options(header='true', inferschema='true').load('/user/yl5090/data/meta.csv')
 
 behavior_log.createOrReplaceTempView('behavior_log')
 user_profile.createOrReplaceTempView('user_profile')
 ad_feature.createOrReplaceTempView('ad_feature')
-# meta.createOrReplaceTempView('meta')
+meta.createOrReplaceTempView('meta')
 ################################################################################
 #
 ################################################################################
@@ -37,16 +37,21 @@ def show_column(var, dataset):
     """
     Input a column name, return contents of that column
     """
-    return spark.sql(
-        'SELECT {0} FROM {1}'.format(var, dataset)).toJSON().collect()
-
+    return spark.sql('SELECT {0} FROM {1}'.format(var, dataset)).toJSON().collect()
 
 def show_table_with_column(col):
     """
     Give a column name, returns the dataset that contains this field
     """
-    return spark.sql(
-        "SELECT * FROM meta WHERE field = '{0}'".format(col)).toJSON().collect()
+    columns1 = ['userid','user']
+    columns2 = ['cate', 'cate_id']
+    if col in columns1:
+        return spark.sql("SELECT table FROM meta WHERE field = '{0}' OR field = '{1}'".format(columns1[0], columns1[1])).toJSON().collect()
+    else:
+        if col in columns2:
+            return spark.sql("SELECT table FROM meta WHERE field = '{0}' OR field = '{1}'".format(columns2[0], columns2[1])).toJSON().collect()
+        else:
+            return spark.sql("SELECT table FROM meta WHERE field = '{0}'".format(col)).toJSON().collect()
 
 
 def col_max(col, dataset):
@@ -94,7 +99,7 @@ def col_most_freq(col, dataset):
 
 def specific_rows(col, value, dataset):
     """
-    Give a column name and a value, returns the rows of the dataset where the 
+    Give a column name and a value, returns the rows of the dataset where the
     column value equals to value
     """
     return spark.sql(
