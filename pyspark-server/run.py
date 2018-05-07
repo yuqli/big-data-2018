@@ -11,7 +11,8 @@ behavior_log = spark.read.format('csv').options(
     header='true', inferschema='true').load('/user/yl5090/data/behavior_log.csv')
 user_profile = spark.read.format('csv').options(
     header='true', inferschema='true').load('/user/yl5090/data/user_profile.csv')
-meta = spark.read.format('csv').options(header='true', inferschema='true').load('/user/yl5090/data/meta.csv')
+meta = spark.read.format('csv').options(
+    header='true', inferschema='true').load('/user/yl5090/data/meta.csv')
 
 behavior_log.createOrReplaceTempView('behavior_log')
 user_profile.createOrReplaceTempView('user_profile')
@@ -39,19 +40,24 @@ def show_column(var, dataset):
     """
     return spark.sql('SELECT {0} FROM {1}'.format(var, dataset)).toJSON().collect()
 
+
 def show_table_with_column(col):
     """
     Give a column name, returns the dataset that contains this field
     """
-    columns1 = ['userid','user']
+    columns1 = ['userid', 'user']
     columns2 = ['cate', 'cate_id']
     if col in columns1:
-        return spark.sql("SELECT table FROM meta WHERE field = '{0}' OR field = '{1}'".format(columns1[0], columns1[1])).toJSON().collect()
+        return spark.sql(
+            "SELECT table FROM meta WHERE field = '{0}' OR field = '{1}'"
+            .format(columns1[0], columns1[1])).toJSON().collect()
     else:
         if col in columns2:
-            return spark.sql("SELECT table FROM meta WHERE field = '{0}' OR field = '{1}'".format(columns2[0], columns2[1])).toJSON().collect()
+            return spark.sql(
+                "SELECT table FROM meta WHERE field = '{0}' OR field = '{1}'".format(columns2[0], columns2[1])).toJSON().collect()
         else:
-            return spark.sql("SELECT table FROM meta WHERE field = '{0}'".format(col)).toJSON().collect()
+            return spark.sql(
+                "SELECT table FROM meta WHERE field = '{0}'".format(col)).toJSON().collect()
 
 
 def col_max(col, dataset):
@@ -60,6 +66,11 @@ def col_max(col, dataset):
     """
     return spark.sql(
         "SELECT MAX({0}) FROM {1}".format(col, dataset)).toJSON().collect()
+
+
+def col_count(col, dataset):
+    return spark.sql('SELECT COUNT {0} as count \
+    FROM {1}'.format(col, dataset)).toJSON().collect()
 
 
 def col_min(col, dataset):
@@ -150,6 +161,8 @@ def search():
     #     res = show_column(column, table)
     # elif aggregation == 'show_table':
     #     res = show_table_with_column(column)
+    else:
+        res = specific_rows(column, value, date_add)
     return jsonify(res)
 
 
