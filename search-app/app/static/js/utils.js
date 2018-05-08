@@ -5,17 +5,26 @@
   ];
   const COL_NAMES = {
     ad_feature: [
-      'adgroup_id', 'cate_id', 'campaign_id',
-      'brand', 'customer_id', 'price'
+      ['adgroup_id', 'Ad group ID'],
+      ['cate_id', 'Category ID'],
+      ['campaign_id', 'Campaign ID'],
+      ['brand', 'Brand'],
+      ['customer_id', 'Customer ID'],
+      ['price', 'Price']
     ],
     user_profile: [
-      'userid', 'cms_segid', 'cms_group_id',
-      'final_gender_code', 'age_level',
-      'pvalue_level', 'shopping_level', 'occupation',
-      'new_user_class_level'
+      ['userid', 'User ID'],
+      ['final_gender_code', 'Gender'],
+      ['age_level', 'Age level'],
+      ['pvalue_level', 'Consumption Grade'],
+      ['shopping_level', 'Shopping Level'],
+      ['occupation', 'Occupation'],
+      ['new_user_class_level', 'City level']
     ],
     behavior_log: [
-      'nick', 'time_stamp', 'btag'
+      ['nick', 'User ID'],
+      ['time_stamp', 'Timestamp'],
+      ['btag', 'Behavior Type']
     ]
   };
   const AG_NAMES = [
@@ -35,8 +44,8 @@
     newSelection.setAttribute('name', oldSelection.name)
     var newOptions = options.forEach(option => {
       var newOption = document.createElement('option');
-      newOption.setAttribute('value', option);
-      newOption.textContent = option;
+      newOption.setAttribute('value', option[0]);
+      newOption.textContent = option[1];
       newSelection.appendChild(newOption);
     });
     columnParent.replaceChild(newSelection, oldSelection);

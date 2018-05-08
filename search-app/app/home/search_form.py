@@ -17,8 +17,6 @@ class SearchForm(FlaskForm):
                             ('min', 'Min'),
                             ('count', 'Count'),
                             ('count_freq', 'Count Frequent'),
-                            ('count_min', 'Count Min'),
-                            ('count_unique', 'Count Unique'),
                             ('mean', 'Mean'),
                             ('sum', 'Sum'),
                             ])
